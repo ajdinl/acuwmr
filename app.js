@@ -1,5 +1,6 @@
-var osu = require('node-os-utils')
-var cpu = osu.cpu
+const osu = require('node-os-utils')
+const nodemailer = require('nodemailer');
+const cpu = osu.cpu
 
 setInterval(print, 30000)
 setInterval(main, 30000)
@@ -10,7 +11,7 @@ cpu.usage()
     console.log('CPU average usage in percentage: ' + info)
   })
   
-  var mem = osu.mem
+  const mem = osu.mem
   mem.used()
   .then(info => {
     console.log(info)
@@ -18,29 +19,29 @@ cpu.usage()
   
 }
 
-const nodemailer = require('nodemailer');
-async function main(){
-let testAccount = await nodemailer.createTestAccount()
+function main(){
 
-const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
     auth: {
-          user: 'ephraim.romaguera78@ethereal.email',
-          pass: '3SHcdJRYUah7YRuFay'
+      user: 'ajdinlojic@gmail.com',
+      pass: 'xxx'
     }
-})
-  
-const info = await transporter.sendMail({
-    from: '"Tester" <ephraim.romaguera78@ethereal.email>',
-    to: 'ajdinl@live.com',
-    subject: 'Sending Email using Node.js',
-    text: 'some text blablabla',
-    html: '<b>Hello from the other side</b>'
   })
-  console.log('Message sent: %s', info.messageId)
-  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
 
+  const mailOptions = {
+    from: 'ajdinlojic@gmail.com',
+    to: 'ajdinl@live.com',
+    subject: 'Header',
+    text: 'Your text message.'
+  }
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+    console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+
+  })
 }
-
-main().catch(console.error)
