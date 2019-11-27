@@ -4,8 +4,8 @@ const cpu = osu.cpu
 require('dotenv').config()
 
 
-setInterval(print, 30000)
-setInterval(main, 30000)
+setInterval(print, 3000)
+setInterval(main, 3000)
 
 let cpuUsage = 0
 let memoryUsage = 0
@@ -13,8 +13,8 @@ let memoryUsage = 0
 function print(){
   cpu.usage()
   .then(info => {
-      cpuUsage = info
-      console.log('CPU average usage in percentage: ' + cpuUsage)
+      cpuUsage = 'CPU average usage in percentage: ' + info + ' '
+      console.log(cpuUsage)
     })
     
     const mem = osu.mem
