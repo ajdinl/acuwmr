@@ -4,23 +4,28 @@ const cpu = osu.cpu
 require('dotenv').config()
 
 
-setInterval(print, 3000)
-setInterval(main, 3000)
+setInterval(print, 30000)
+setInterval(main, 30000)
+
+let cpuUsage = 0
+let memoryUsage = 0
 
 function print(){
   cpu.usage()
   .then(info => {
-      console.log('CPU average usage in percentage: ' + info)
+      cpuUsage = info
+      console.log('CPU average usage in percentage: ' + cpuUsage)
     })
     
     const mem = osu.mem
     mem.used()
     .then(info => {
-      console.log(info)
+      memoryUsage = info
+      console.log(memoryUsage)
     })
-}
-
-function main(){
+  }
+  
+  function main(){
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -33,8 +38,8 @@ function main(){
   const mailOptions = {
     from: process.env.DB_MAIL,
     to: process.env.DB_TO_MAIL,
-    subject: 'Header',
-    text: 'Your text message.'
+    subject: 'Cpu and memory usage',
+    text: cpuUsage + JSON.stringify(memoryUsage)
   }
 
   transporter.sendMail(mailOptions, function(error, info){
