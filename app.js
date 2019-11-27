@@ -4,8 +4,8 @@ const cpu = osu.cpu
 require('dotenv').config()
 
 
-setInterval(print, 30000)
-setInterval(main, 30000)
+setInterval(print, 3000)
+setInterval(main, 3000)
 
 function print(){
   cpu.usage()
@@ -32,7 +32,7 @@ function main(){
 
   const mailOptions = {
     from: process.env.DB_MAIL,
-    to: 'ajdinl@live.com',
+    to: process.env.DB_TO_MAIL,
     subject: 'Header',
     text: 'Your text message.'
   }
